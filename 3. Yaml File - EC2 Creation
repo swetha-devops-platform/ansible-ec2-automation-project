@@ -1,0 +1,36 @@
+---
+- name: Create EC2 Instances using Ansible Loop
+  hosts: localhost
+  connection: local
+
+  vars:
+    aws_region: ap-south-1
+    instance_type: t2.micro
+    security_group: default   
+    key_name: Swe_keypair
+
+    instances:
+      - name: "Ubuntu-1"
+        ami: "ami-05d2d839d4f73aafb"   # Ubuntu AMI (example)
+
+      - name: "Ubuntu-2"
+        ami: "ami-05d2d839d4f73aafb"
+
+      - name: "CentOS-1"
+        ami: "ami-048f4445314bcaa09"   # CentOS AMI (example)
+
+  tasks:
+    - name: Launch EC2 instances
+      amazon.aws.ec2_instance:
+        name: "{{ item.name }}"
+        instance_type: "{{ instance_type }}"
+        image_id: "{{ item.ami }}"
+        region: "{{ aws_region }}"
+        security_groups: "{{ security_group }}"
+        key_name: "{{ key_name }}"
+        aws_access_key: "{{ ec2_access_key }}"
+        aws_secret_key: "{{ ec2_secret_key }}"
+        network:
+          assign_public_ip: true
+
+      loop: "{{ instances }}"
