@@ -1,4 +1,4 @@
-# Project Title  - “Automated Multi-OS EC2 Provisioning & Conditional Management using Ansible”
+# Project Title  - “Automating Multi-OS EC2 Provisioning with Conditional Configuration using Ansible”
 
 # Project Description
 
